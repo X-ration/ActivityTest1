@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static long mExitTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(MainActivity.this, "Goodbye", Toast.LENGTH_LONG).show();
-        finish();
+        if(System.currentTimeMillis() - mExitTime > 2000){
+            Toast.makeText(MainActivity.this, "Press again to quit", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();
+        }
+        else {
+            Toast.makeText(MainActivity.this, "Goodbye", Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 }
